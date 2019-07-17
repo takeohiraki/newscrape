@@ -48,7 +48,7 @@ app.get("/scrape", function (req, res) {
       // result.link = $(this).children("a").attr("href");
 
       result.link = $(this).children("a").attr("href").replace(/(\/#|\/|#)$/, '');
-      
+
 
 
       // Create a new Article using the `result` object built from scraping
@@ -94,6 +94,8 @@ app.get("/articles/:id", function (req, res) {
   // and run the populate method with "note",
   // then responds with the article with the note included
 
+  // console.log("req.params.id: " + req.params.id)
+
   db.Article.findOne({ "_id": req.params.id })
     .populate("note")
     .then(function (dbArticle) {
@@ -104,9 +106,6 @@ app.get("/articles/:id", function (req, res) {
       // If an error occurs, send it back to the client
       res.json(err);
     });
-
-
-
 });
 
 // Route for saving/updating an Article's associated Note

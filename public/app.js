@@ -6,12 +6,11 @@ $.getJSON("/articles", function (data) {
   for (var i = 0; i < data.length; i++) {
 
     $("#articles")
-      .append("<div data-id='" + data[i]._id + "' class='card'>" )
+      .append("<div data-id='" + data[i]._id + "' class='card'>")
       .append("<div class='card-header'>")
       .append("<h3> <a class='article-link' target='_blank' rel='noopener noreferrer' href=" + data[i].link + ">" + data[i].title + "</a> </h3>")
-      .append("<a class='btn btn-success' target='_blank' >Comment</a>")
-      .append("<a class='btn btn-success save'>Save Article</a>")
-      
+      .append("<a class='btn btn-success comment' data-id=" + data[i]._id + ">Comment</a>")
+      /* .append("<a class='btn btn-success save'>Save Article</a>") */
       .append("</div>")
       .append("</div>")
       .append("<br>")
@@ -19,13 +18,16 @@ $.getJSON("/articles", function (data) {
 });
 
 
-// Whenever someone clicks a p tag
-$(document).on("click", "p", function () {
+// Shows div for inputting comments
+$(document).on("click", ".comment", function () {
+
+  console.log("run")
   // Empty the notes from the note section
   $("#notes").empty();
   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
 
+  console.log(thisId)
   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
@@ -43,12 +45,19 @@ $(document).on("click", "p", function () {
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
 
+
       // If there's a note in the article
       if (data.note) {
         // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
+        // $("#titleinput").val(data.note.title);
         // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
+        // $("#bodyinput").val(data.note.body);
+
+        //$("#notes").append("<h2>" + data.note  + "</h2>");
+        $("#notes").append("<h4> Comments: </h4>");
+        $("#notes").append("<p>" + data.note.title + "</p>");
+
+
       }
     });
 });
@@ -66,7 +75,8 @@ $(document).on("click", "#savenote", function () {
       // Value taken from title input
       title: $("#titleinput").val(),
       // Value taken from note textarea
-      body: $("#bodyinput").val()
+      body: $("#bodyinput").val(), 
+      postId: thisId
     }
   })
     // With that done
