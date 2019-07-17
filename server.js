@@ -45,7 +45,10 @@ app.get("/scrape", function (req, res) {
       // save title and link for each post
 
       result.title = $(this).children("a").text().replace(/\r?\n|\r/g, "").replace(/\r?\t|\r/g, "")
-      result.link = $(this).children("a").attr("href");
+      // result.link = $(this).children("a").attr("href");
+
+      result.link = $(this).children("a").attr("href").replace(/(\/#|\/|#)$/, '');
+      
 
 
       // Create a new Article using the `result` object built from scraping
@@ -61,7 +64,8 @@ app.get("/scrape", function (req, res) {
     });
 
     // Send a message to the client
-    res.send("Scrape Complete");
+    //res.send("Scrape Complete");
+    res.status("Scrape Complete").redirect("/");
   });
 });
 

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.0.0/materia/bootstrap.min.css"/>
   <link href="https://fonts.googleapis.com/css?family=Cormorant+SC" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- <link rel="stylesheet" href="/assets/css/style.css"> -->
 </head>
 
 <body>
@@ -44,95 +44,23 @@
   <div class="background-image">
   </div>
   <div class="caption">
-    <h1>Mongo Scraper</h1>
-    <p>New York Times Edition</p>
+    <h1>FiveThirtyEight Scraper</h1>
   </div>
 </div>
 <div class="container-fluid article-container">
-  <div data-_id="5d2e852f87d7ae0015ffb62e" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/us/politics/trump-tweet-house-vote.html">Trump Sets the 2020 Tone: Like 2016, Only This Time ‘the Squad’ Is Here</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The president boasted of “marrying” Speaker Nancy Pelosi to “the Squad,” betting that he can cast the entire Democratic Party as radical.</div>
-  </div>
-    <div data-_id="5d2e852f87d7ae0015ffb62d" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/us/politics/trump-tweet-house-vote.html">House Votes to Condemn Trump’s Language as RacistTrump Sets the 2020 Tone: Like 2016, Only This Time ‘the Squad’ Is HereRead the resolution.</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The president boasted of “marrying” Speaker Nancy Pelosi to “the Squad,” betting that he can cast the entire Democratic Party as radical.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb62b" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/dining/belle-harlem-review-pete-wells.html">In Harlem, a Tiny Restaurant That Hums</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The chef Darryl Burnette and his wife, Melissa, deliver big flavors from a very small kitchen.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb62a" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/opinion/donald-trump-lies.html">In Trump I Trust</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The president’s political project requires more than a few leaps of faith.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb62c" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/books/review/kate-tuttle-true-crime-women.html">Why Do Women Love True Crime?</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The writer Kate Tuttle considers why women love to read about violent crime, as men are more likely to be involved in real life as perpetrators and victims.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb629" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/science/michael-collins-apollo-11.html">For Apollo 11 He Wasn’t on the Moon. But His Coffee Was Warm.</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">Michael Collins kept an orbital vigil during Neil Armstrong and Buzz Aldrin’s moonwalk. But he really didn’t feel that lonely.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb628" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/health/opioids-grants-treatment-addiction.html">Billions in Grants Crucial to Opioid Treatment May DisappearHow the Opioid Crisis Arrived at New York’s Commuter Hubs</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">In the throes of addiction, people congregate around Penn Station and the Port Authority Bus Terminal.</div>
-  </div>
-    <div data-_id="5d2e706587d7ae0015ffb626" class="card">
-    <div class="card-header">
-      <h3>
-        <a class="article-link" target="_blank" rel="noopener noreferrer" href="https://www.nytimes.com/2019/07/16/us/politics/house-resolution-trump.html">Read the resolution.Planned Parenthood Removes Leana Wen as President</a>
-        <a class="btn btn-success save">Save Article</a>
-      </h3>
-    </div>
-    <div class="card-body">The organization removed Dr. Wen after less than a year in the job, and at a time when states are passing new laws to restrict abortion.</div>
-  </div>
+
+  <div id="articles"></div>
+  
    </div>
+   <div id="notes"></div>
 
 <footer class="footer">
-  <div class="container">
-    <p>New York Times Mongo Scraper</p>
-  </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-<script src="/assets/javascript/index.js"></script>
+<script src="./app.js"></script>
 
 </body>
 
