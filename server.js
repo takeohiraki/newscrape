@@ -1,65 +1,52 @@
-var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+const express = require("express");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const mongojs = require("mongojs");
+const ObjectId = mongojs.ObjectId;
+const axios = require("axios");
+const cheerio = require("cheerio");
+const db = require("./models");
+const PORT = process.env.PORT || 3000;
+const app = express();
 
-var mongojs = require("mongojs");
-var ObjectId = mongojs.ObjectId;
 
+// Middleware
 
-
-// Our scraping tools
-// Axios is a promised-based http library, similar to jQuery's Ajax method
-// It works on the client and on the server
-var axios = require("axios");
-var cheerio = require("cheerio");
-
-// Require all models
-var db = require("./models");
-
-var PORT = process.env.PORT || 3000;
-
-// Initialize Express
-var app = express();
-
-// Configure middleware
-
-// Use morgan logger for logging requests
+// Morgan logger for logging requests
 app.use(logger("dev"));
-// Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 // Make public a static folder
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
-
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 
 // Routes
 
-// A GET route for scraping the echoJS website
+// A route for scraping website
 app.get("/scrape", function (req, res) {
-  // First, we grab the body of the html with axios
-  axios.get("http://www.echojs.com/").then(function (response) {
-    // Then, we load that into cheerio and save it to $ for a shorthand selector
+
+  // Grabbing the body of the html with axios
+  axios.get("https://fivethirtyeight.com/politics/").then(function (response) {
+    // Then, load into cheerio
     var $ = cheerio.load(response.data);
 
-    // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function (i, element) {
-      // Save an empty result object
+    // console.log(response.data)
+
+    // Now, we grab h2's within an status-publish tags, which is a commonality among posts
+    $(".status-publish h2").each(function (i, element) {
+
       var result = {};
 
-      // Add the text and href of every link, and save them as properties of the result object
-      result.title = $(this)
-        .children("a")
-        .text();
-      result.link = $(this)
-        .children("a")
-        .attr("href");
+      // save title and link for each post
+
+      result.title = $(this).children("a").text().replace(/\r?\n|\r/g, "").replace(/\r?\t|\r/g, "")
+      result.link = $(this).children("a").attr("href");
+
 
       // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
@@ -133,10 +120,10 @@ app.post("/articles/:id", function (req, res) {
       // If a Note was created successfully, find one User (there's only one) and push the new Note's _id to the User's `notes` array
       // { new: true } tells the query that we want it to return the updated User -- it returns the original by default
       // Since our mongoose query returns a promise, we can chain another `.then` which receives the result of the query
-      return db.Article.findOneAndUpdate({ _id: articleId}, { note: dbNote._id }, { new: true });
+      return db.Article.findOneAndUpdate({ _id: articleId }, { note: dbNote._id }, { new: true });
     })
     .then(function (dbArticle) {
-      
+
       res.json(dbArticle);
     })
     .catch(function (err) {
